@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+{% block body %}
+  Race Time!
+ 
+  <form action="{{ url_for('add_result') }}" method=post>
+      <table>
+        <tr><td>Blue Bike:</td><td>Red Bike:</td></tr>
+        <tr>
+          <td>
+            <select name="blueid">
+              {% for entry in entries %}
+              <option value="{{ entry.id }}">{{ entry.name }}</option>
+              {% endfor %}
+            </select>
+          <td>
+            <select name="redid">
+              {% for entry in entries %}
+              <option value="{{ entry.id }}">{{ entry.name }}</option>
+              {% endfor %}
+            </select>
+        </td></tr>
+        <tr><td><input type=text size=30 name=bluetime></td><td><input type=text size=30 name=redtime></td></tr>
+        <tr><td colspan="2"><input type=submit value="Record Times"></td></tr>
+      </table>
+  </form>
+
+{% endblock %}

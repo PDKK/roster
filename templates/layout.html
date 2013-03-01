@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+<head>
+<title></title>
+<link rel=stylesheet type=text/css href="{{ url_for('static',
+                                         filename='style.css') }}">
+<script type="text/javascript" src="{{ url_for('static', filename='jquery-1.9.1.min.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static',
+                                    filename='jquery.totemticker.min.js')
+                                    }}"></script>
+<script type="text/javascript" src="{{ url_for('static',
+                                    filename='vticker.min.js')
+                                    }}"></script>
+{% block javascript %}{% endblock %}
+</head>
+<body>
+<div class=page>
+  <h1>SCS Roller Racing</h1>
+  <div class=metanav>
+    <a href="roster">Roster</a>
+    <a href="results">Results</a>
+    <a href="race">Race</a>
+  </div>
+  {% for message in get_flashed_messages() %}
+    <div class=flash>{{ message }}</div>
+  {% endfor %}
+  {% block body %}{% endblock %}
+</div>
+</body>
+</html>
