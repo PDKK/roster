@@ -5,7 +5,8 @@ create table entries (
       age integer not null,
       club string,
       category integer not null,
-      time real
+      time real,
+      history string
 );
 
 drop table if exists categories;
@@ -14,4 +15,4 @@ create table categories (
        name string not null
 );
 
-insert into categories (name) values ("Man"), ("Woman"), ("Under 16");
+insert into categories (name) values ("Men"), ("Women"), ("Under 16");

@@ -17,9 +17,10 @@
 <div class=page>
   <h1>SCS Roller Racing</h1>
   <div class=metanav>
-    <a href="roster">Roster</a>
-    <a href="results">Results</a>
-    <a href="race">Race</a>
+    <a href="{{ url_for('show_roster') }}">Roster</a>
+    <a href="{{ url_for('show_results') }}">Results</a>
+    <a href="{{ url_for('show_race') }}">Race</a>
+ 
   </div>
   {% for message in get_flashed_messages() %}
     <div class=flash>{{ message }}</div>

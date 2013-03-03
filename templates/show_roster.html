@@ -25,7 +25,7 @@
 
   <ul class=entries>
   {% for entry in entries %}
-    <li><b>{{ entry.name }}</b>  Age:{{ entry.age }}, Club:{{ entry.club }}
+    <li><a href="{{ url_for('edit_rider', id=entry.id) }}"><b>{{ entry.name }}</b></a>  Age:{{ entry.age }}, Club:{{ entry.club }}
   {% else %}
     <li><em>Unbelievable.  No entries here so far</em>
   {% endfor %}

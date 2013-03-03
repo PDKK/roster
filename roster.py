@@ -77,6 +77,39 @@ def add_rider():
     flash('New entry was successfully posted')    
     return redirect(url_for('show_roster'))
 
+@app.route('/rider/<id>/edit', methods=['GET', 'POST'])
+def edit_rider(id):
+    if request.method == 'GET':
+        # Get the data from the database
+        cur = g.db.execute('select id,name from categories order by id asc')
+        categories = [dict(id=row[0], name=row[1]) for row in cur.fetchall()]
+        cur = g.db.execute('select name, age, club, category, time, history from entries where id=?', [id])
+        row = cur.fetchone()
+        return render_template('edit_rider.html',
+                               id=id,
+                               name=row[0],
+                               age=row[1],
+                               club=row[2],
+                               category=row[3],
+                               time = row[4],
+                               history = row[5],
+                               categories = categories);
+    else:
+        # Update the details
+        g.db.execute('update entries set name=?, age=?, club=?, category=?, time=?, history=? where id = ?',
+                     [request.form['name'], 
+                      request.form['age'], 
+                      request.form['club'], 
+                      request.form['category'],
+                      request.form['time'],
+                      request.form['history'],
+                      id])
+        g.db.commit()
+        flash('Rider was successfully posted')    
+        return redirect(url_for('show_roster'))
+
+
+
 @app.route('/add_result', methods=['POST'])
 def add_result():
     try:
@@ -85,18 +118,38 @@ def add_result():
     except:
         flash("Put a time in, you numpty")
         return redirect(url_for('show_race'))
-        
-    cur = g.db.execute('select time from entries where id = ?', [request.form['blueid']])
+    add_one_result(request.form['blueid'], request.form['bluetime'])
+    add_one_result(request.form['redid'], request.form['redtime'])
+    return redirect(url_for('show_race'))
+
+def add_one_result(id, time):        
+    cur = g.db.execute('select time, history from entries where id = ?', [id])
     row = cur.fetchone()
-    if row[0] == None or float(request.form['bluetime']) < row[0]:
-        g.db.execute('update entries set time = ? where id = ?', [request.form['bluetime'], request.form['blueid']])
+    if row[1] == None:
+        history = str(time);
+    else:
+        history = str(row[1]) + ', ' + str(time)
+    if row[0] == None or float(time) < row[0]:
+        g.db.execute('update entries set time = ?, history = ? where id = ?', [time, history, id])
         g.db.commit()
-    cur = g.db.execute('select time from entries where id = ?', [request.form['redid']])
+    else:
+        g.db.execute('update entries set history = ? where id = ?', [history, id])
+        g.db.commit()
+
+def old_red():
+    cur = g.db.execute('select time, history from entries where id = ?', [request.form['redid']])
     row = cur.fetchone()
+    if row[1] == None:
+        history = str(request.form['redtime']);
+    else:
+        history = str(row[1]) + ', ' + str(request.form['redtime'])
     if row[0] == None or float(request.form['redtime']) < row[0]:
         g.db.execute('update entries set time = ? where id = ?', [request.form['redtime'], request.form['redid']])
         g.db.commit()
-    return redirect(url_for('show_race'))
+    else:
+        g.db.execute('update entries set history = ? where id = ?', [history,  request.form['redid']])
+        g.db.commit()
+
 
 
 @app.route('/login', methods=['GET', 'POST'])
