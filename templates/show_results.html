@@ -2,10 +2,14 @@
 {% block javascript %}
 <script type="text/javascript">
   $(function(){
+
     $('#vt').vTicker({
       showItems:9,
       pause:300
     });
+    {% if entries|length <= 9 %}
+      $('#vt').vTicker('pause', true);
+    {% endif %}
     t1 = setTimeout(function() {
            window.location.href="results?category={{next_category}}";
      }, 10000);

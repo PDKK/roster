@@ -136,21 +136,6 @@ def add_one_result(id, time):
         g.db.execute('update entries set history = ? where id = ?', [history, id])
         g.db.commit()
 
-def old_red():
-    cur = g.db.execute('select time, history from entries where id = ?', [request.form['redid']])
-    row = cur.fetchone()
-    if row[1] == None:
-        history = str(request.form['redtime']);
-    else:
-        history = str(row[1]) + ', ' + str(request.form['redtime'])
-    if row[0] == None or float(request.form['redtime']) < row[0]:
-        g.db.execute('update entries set time = ? where id = ?', [request.form['redtime'], request.form['redid']])
-        g.db.commit()
-    else:
-        g.db.execute('update entries set history = ? where id = ?', [history,  request.form['redid']])
-        g.db.commit()
-
-
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
