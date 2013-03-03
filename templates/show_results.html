@@ -3,29 +3,26 @@
 <script type="text/javascript">
   $(function(){
     $('#vt').vTicker({
-      showItems:3,
+      showItems:9,
       pause:300
     });
+    t1 = setTimeout(function() {
+           window.location.href="results?category={{next_category}}";
+     }, 10000);
   });
 
 </script>
 {% endblock %}
 {% block body %}
 
-  <h1>Results</h1>
+  <h1>Results - {{ catname }}</h1>
 
-
-  <h2>All Category</h2>
 
   <div id="vt">
-    <ul>
-
+    <ul id="target">
       {% for entry in entries %}
-      
-      <li class="result">{{ entry.name }}:{{entry.time}}</li>
-    
+      <li class="result">{{ entry.name }}({{entry.catname}}):{{entry.time}}</li>
       {% endfor %}
-  
     </ul>
   </div>    
 

@@ -55,11 +55,19 @@ def show_roster():
 
 @app.route('/results')
 def show_results():
-    cur = g.db.execute('select name, category, time from entries where time NOT NULL order by category asc, time asc ')
-    entries = [dict(name=row[0], category=row[1], time=row[2]) for row in cur.fetchall()]
-    cur = g.db.execute('select id,name from categories order by id asc')
-    categories = [dict(id=row[0], name=row[1]) for row in cur.fetchall()]
-    return render_template('show_results.html', entries=entries, categories=categories)
+    requested_category = int(request.args.get('category',0))
+    if requested_category == 0:
+        cur = g.db.execute('select entries.name, category, time, categories.name from entries inner join categories on entries.category = categories.id where time NOT NULL order by category asc, time asc ')
+    else:
+        cur = g.db.execute('select entries.name, category, time, categories.name from entries inner join categories on entries.category = categories.id where time NOT NULL and entries.category = ? order by category asc, time asc ', [requested_category])
+    entries = [dict(name=row[0], category=row[1], time=row[2], catname=row[3]) for row in cur.fetchall()]
+    if requested_category == 0:
+        catname = 'All Categories'
+    else:
+        cur = g.db.execute('select name from categories where id = ?', [requested_category])
+        row = cur.fetchone()
+        catname = row[0]
+    return render_template('show_results.html', entries=entries, catname=catname, next_category=(requested_category+1)% 4)
 
 @app.route('/add_rider', methods=['POST'])
 def add_rider():
