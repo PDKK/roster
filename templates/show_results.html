@@ -24,8 +24,10 @@
 
   <div id="vt">
     <ul id="target">
+      {% set position = 1 %}
       {% for entry in entries %}
-      <li class="result">{{ entry.name }}({{entry.catname}}):{{entry.time}}</li>
+      <li class="result">{{position}} - {{ entry.name }}({{entry.catname}}):{{entry.time}}</li>
+        {% set position = position + 1 %}
       {% endfor %}
     </ul>
   </div>    

@@ -5,7 +5,7 @@ from flask import Flask, request, session, g, redirect, url_for, \
 from contextlib import closing
 
 # configuration
-DATABASE = '/tmp/roster.db'
+DATABASE = 'roster.db'
 DEBUG = True
 SECRET_KEY = 'development key'
 USERNAME = 'admin'
@@ -57,7 +57,7 @@ def show_roster():
 def show_results():
     requested_category = int(request.args.get('category',0))
     if requested_category == 0:
-        cur = g.db.execute('select entries.name, category, time, categories.name from entries inner join categories on entries.category = categories.id where time NOT NULL order by category asc, time asc ')
+        cur = g.db.execute('select entries.name, category, time, categories.name from entries inner join categories on entries.category = categories.id where time NOT NULL order by time asc ')
     else:
         cur = g.db.execute('select entries.name, category, time, categories.name from entries inner join categories on entries.category = categories.id where time NOT NULL and entries.category = ? order by category asc, time asc ', [requested_category])
     entries = [dict(name=row[0], category=row[1], time=row[2], catname=row[3]) for row in cur.fetchall()]
