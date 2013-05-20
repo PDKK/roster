@@ -33,7 +33,7 @@ def show_results():
     if requested_category == 0:
         catname = 'All Categories'
     else:
-        catname = Category.query.filter(id=requested_category).first().name
+        catname = Category.query.filter_by(id=requested_category).first().name
     return render_template('show_results.html', entries=entries, catname=catname, next_category=(requested_category+1)% 4)
 
 @app.route('/add_rider', methods=['POST'])
