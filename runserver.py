@@ -1,6 +1,6 @@
 #!/usr/bin/python
-from kemosahbi import app
-import kemosahbi.models 
+from roster import app
+import roster.models 
 
 import sys, getopt
 
@@ -22,11 +22,11 @@ def main(argv):
             _init_db = True
             _add_test_data = True
     if _init_db:
-        kemosahbi.models.init_db()
+        roster.models.init_db()
         sys.exit()
     if _add_test_data:
-        kemosahbi.models.init_db()
-        kemosahbi.models.add_test_data()
+        roster.models.init_db()
+        roster.models.add_test_data()
         sys.exit()
     app.run(host='0.0.0.0',debug=True)
    

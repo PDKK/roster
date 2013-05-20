@@ -1,2 +1,6 @@
 # Virtualenv
 venv
+/roster/__init__.pyc
+/roster/forms.pyc
+/roster/models.pyc
+/roster/views.pyc
