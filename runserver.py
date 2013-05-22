@@ -19,7 +19,6 @@ def main(argv):
         elif opt in ("--init-db"):
             _init_db = True
         elif opt in ("--init-test-db"):
-            _init_db = True
             _add_test_data = True
     if _init_db:
         roster.models.init_db()

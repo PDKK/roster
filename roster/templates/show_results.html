@@ -9,10 +9,12 @@
     });
     {% if entries|length <= 9 %}
       $('#vt').vTicker('pause', true);
+    {% else %}
+      $('#vt').vTicker('pause', false);
     {% endif %}
     t1 = setTimeout(function() {
            window.location.href="results?category={{next_category}}";
-     }, 10000);
+     }, 2000 + 300* {{ entries|length }});
   });
 
 </script>
@@ -26,7 +28,7 @@
     <ul id="target">
       {% set position = 1 %}
       {% for entry in entries %}
-      <li class="result">{{position}} - {{ entry.name }}({{entry.catname}}):{{entry.time}}</li>
+      <li class="result">{{position}} - {{ entry.name }}({{entry.category.name}}):{{entry.time}}</li>
         {% set position = position + 1 %}
       {% endfor %}
     </ul>
