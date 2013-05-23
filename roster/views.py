@@ -11,10 +11,28 @@ def show_entries():
     entries = Entry.query.all()
     return render_template('show_welcome.html', entries=entries)
 
+def build_race_list():
+    racers = Entry.query.filter(Entry.time==None).order_by('id').all()
+    nextRaces = []
+    while len(racers) > 0 and len(nextRaces) < 6:
+        cat = racers[0].categoryId
+        nextRace = [ racers.pop(0).name ]
+        for i in range(len(racers)):
+            if racers[i].categoryId == cat:
+                nextRace.append(racers.pop(i).name)
+                break
+        if len(nextRace) == 1:
+            nextRaces.append("Anyone!")
+        nextRaces.append(nextRace)
+    return nextRaces
+
 @app.route('/race')
 def show_race():
     entries = Entry.query.order_by('name').all()
-    return render_template('show_race.html', entries=entries)
+    racers = Entry.query.filter(Entry.time==None).order_by('id').all()
+    nextRaces = build_race_list()
+            
+    return render_template('show_race.html', entries=entries, nextRaces=nextRaces)
 
 @app.route('/roster')
 def show_roster():

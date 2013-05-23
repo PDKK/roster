@@ -1,7 +1,10 @@
 {% extends "layout.html" %}
 {% block body %}
   Race Time!
- 
+
+  {% for race in nextRaces %}
+    {{ race[0] }} vs {{ race[1] }} <br/>
+  {% endfor %}
   <form action="{{ url_for('add_result') }}" method=post>
       <table>
         <tr><td>Blue Bike:</td><td>Red Bike:</td></tr>
