@@ -13,12 +13,12 @@ def show_entries():
 
 @app.route('/race')
 def show_race():
-    entries = Entry.query.all()
+    entries = Entry.query.order_by('name').all()
     return render_template('show_race.html', entries=entries)
 
 @app.route('/roster')
 def show_roster():
-    entries = Entry.query.all()
+    entries = Entry.query.order_by('name').all()
     categories = Category.query.all()
     form = EntryForm()
     return render_template('show_roster.html', entries=entries, categories=categories, form=form)
@@ -43,18 +43,32 @@ def add_rider():
         entry = Entry(form.name)
         form.populate_obj(entry)
         db.session.add(entry)
-        db.session.commit()
-        flash('New entry was successfully posted')    
+        try:
+            db.session.commit()
+            flash('New entry was successfully posted')  
+        except:
+            flash('Commit failed - name already used?')
+        
     return redirect(url_for('show_roster'))
 
 @app.route('/rider/<id>/edit', methods=['GET', 'POST'])
 def edit_rider(id):
     rider = Entry.query.get_or_404(id)
     form = EntryForm(obj=rider)
+    
     if form.validate_on_submit():
-        form.populate_obj(rider)
-        db.session.commit()
-        flash('Rider was successfully posted')    
+        if 'delete' in request.form:
+            db.session.delete(rider)
+            flash('Rider was successfully deleted')
+            db.session.commit()
+        else:
+            form.populate_obj(rider)
+            try:
+                db.session.commit()
+            except:
+                flash('Update failed - db error?')
+                return redirect(url_for('edit_rider', id=id))
+            flash('Rider was successfully updated')    
         return redirect(url_for('show_roster'))
     else:    
         # Get the data from the database

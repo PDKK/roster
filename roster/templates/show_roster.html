@@ -6,8 +6,14 @@
       <dl>
         <dt>Name:
         <dd>{{ form.name() }}
+          {% for error in form.errors.name %}
+            {{ error }}
+          {% endfor %}
         <dt>Age:
-        <dd>{{ form.age() }}
+        <dd>{{ form.age() }} 
+          {% for error in form.errors.age %}
+            {{ error }}
+          {% endfor %}
         <dt>Club:
         <dd>{{ form.club() }}
         <dt>Category:
