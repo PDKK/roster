@@ -111,9 +111,9 @@ def add_result():
 def add_one_result(id, time):  
     row = Entry.query.get_or_404(id)
     if row.history == None:
-        history = str(time);
+        row.history = str(time);
     else:
-        history = str(row.history) + ', ' + str(time)
+        row.history = str(row.history) + ', ' + str(time)
     if row.time == None or float(time) < row.time:
         row.time = float(time)
     db.session.commit()
