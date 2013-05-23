@@ -22,16 +22,14 @@ def build_race_list():
                 nextRace.append(racers.pop(i).name)
                 break
         if len(nextRace) == 1:
-            nextRaces.append("Anyone!")
+            nextRace.append("Anyone!")
         nextRaces.append(nextRace)
     return nextRaces
 
 @app.route('/race')
 def show_race():
     entries = Entry.query.order_by('name').all()
-    racers = Entry.query.filter(Entry.time==None).order_by('id').all()
     nextRaces = build_race_list()
-            
     return render_template('show_race.html', entries=entries, nextRaces=nextRaces)
 
 @app.route('/roster')

@@ -21,4 +21,4 @@ h2              { font-size: 1.2em; }
 .flash          { background: #CEE5F5; padding: 0.5em;
                   border: 1px solid #AACBE2; }
 .error          { background: #F0D6D6; padding: 0.5em; }
-.result   { font-weight: bold; font-size:2.3em; font-family: '"Bookman Old Style'; text-shadow: 2px 2px 2px #fff; }
+.result   { font-weight: bold; font-size:1.5em; font-family: '"Bookman Old Style'; text-shadow: 2px 2px 2px #fff; }

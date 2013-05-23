@@ -4,3 +4,4 @@ venv
 /roster/forms.pyc
 /roster/models.pyc
 /roster/views.pyc
+/roster/roster.db
