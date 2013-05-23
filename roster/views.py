@@ -43,6 +43,7 @@ def show_roster():
 
 @app.route('/results')
 def show_results():
+    nextRaces = build_race_list()
     requested_category = int(request.args.get('category',0))
     if requested_category == 0:
         entries = Entry.query.filter(Entry.time != None).order_by(Entry.time).all()
@@ -52,7 +53,7 @@ def show_results():
         catname = 'All Categories'
     else:
         catname = Category.query.filter_by(id=requested_category).first().name
-    return render_template('show_results.html', entries=entries, catname=catname, next_category=(requested_category+1)% 4)
+    return render_template('show_results.html', entries=entries, catname=catname, next_category=(requested_category+1)% 4, nextRaces=nextRaces)
 
 @app.route('/add_rider', methods=['POST'])
 def add_rider():

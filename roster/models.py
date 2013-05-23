@@ -85,28 +85,28 @@ def add_test_data():
     db.session.add(m5)
 
     cWomen = Category.query.filter_by(name='Women').first()
-    m1 = Entry('WAlf Aardvark', 21, 'Aardmans')
+    m1 = Entry('Annie Aardvark', 21, 'Aardmans')
     m1.category = cWomen
     db.session.add(m1)
-    m2 = Entry('WBob Bemer', 22, 'Aardmans')
+    m2 = Entry('Betty Bemer', 22, 'Aardmans')
     m2.category = cWomen
     db.session.add(m2)
-    m3 = Entry('WCharles Corney', 23, 'Aardmans')
+    m3 = Entry('Cynthia Corney', 23, 'Aardmans')
     m3.category = cWomen
     db.session.add(m3)
-    m4 = Entry('WDavid Dilligent', 24, 'Aardmans')
+    m4 = Entry('Deirdre Dilligent', 24, 'Aardmans')
     m4.category = cWomen
     db.session.add(m4)
-    m5 = Entry('WEd Emeriay', 25, 'Aardmans')
+    m5 = Entry('Emma Emeriay', 25, 'Aardmans')
     m5.category = cWomen
     db.session.add(m5)
-    m5 = Entry('WFred Fotheringay', 26, 'Aardmans')
+    m5 = Entry('Frances Fotheringay', 26, 'Aardmans')
     m5.category = cWomen
     db.session.add(m5)
-    m5 = Entry('WGreg Gemeriay', 21, 'Aardmans')
+    m5 = Entry('Gemma Gemeriay', 21, 'Aardmans')
     m5.category = cWomen
     db.session.add(m5)
-    m5 = Entry('WHarry Hemeriay', 21, 'Aardmans')
+    m5 = Entry('Hillary Hemeriay', 21, 'Aardmans')
     m5.category = cWomen
     db.session.add(m5)
     m5 = Entry('WIan Imeriay', 21, 'Aardmans')
@@ -117,10 +117,10 @@ def add_test_data():
     db.session.add(m5)
 
     cChild = Category.query.filter_by(name='Under 16').first()
-    m1 = Entry('CAlf Aardvark', 21, 'Aardmans')
+    m1 = Entry('Aaron Aardvark', 21, 'Aardmans')
     m1.category = cChild
     db.session.add(m1)
-    m2 = Entry('CBob Bemer', 22, 'Aardmans')
+    m2 = Entry('Billy Bemer', 22, 'Aardmans')
     m2.category = cChild
     db.session.add(m2)
     m3 = Entry('CCharles Corney', 23, 'Aardmans')
