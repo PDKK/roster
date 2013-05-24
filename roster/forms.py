@@ -10,7 +10,7 @@ def category_factory():
 
 class EntryForm(Form):
     name = TextField('name')
-    age = IntegerField('age')
+    age = IntegerField('age', validators=[Optional()])
     club = TextField('club')
     category = QuerySelectField(query_factory=category_factory, get_label='name')
     time = FloatField('time', validators=[Optional()])

@@ -32,13 +32,34 @@ def show_race():
     nextRaces = build_race_list()
     return render_template('show_race.html', entries=entries, nextRaces=nextRaces)
 
-@app.route('/roster')
-def show_roster():
+@app.route('/rosterbyname')
+def show_roster_alphabetic():
     racers = Entry.query.filter(Entry.time==None).order_by('id').all()
     entries = Entry.query.order_by('name').all()
     categories = Category.query.all()
     form = EntryForm()
     return render_template('show_roster.html', entries=entries, categories=categories, form=form, racers=racers)
+
+@app.route('/rosterbyid')
+def show_roster_id():
+    racers = Entry.query.filter(Entry.time==None).order_by('id').all()
+    entries = []
+    entries.extend(racers)
+    entries.extend(Entry.query.filter(Entry.time != None).order_by('id').all())
+    categories = Category.query.all()
+    form = EntryForm()
+    return render_template('show_roster.html', entries=entries, categories=categories, form=form, racers=racers)
+
+@app.route('/rosterbytime')
+def show_roster_time():
+    racers = Entry.query.filter(Entry.time==None).order_by('id').all()
+    entries = []
+    entries.extend(Entry.query.filter(Entry.time != None).order_by('time').all())
+    entries.extend(racers)
+    categories = Category.query.all()
+    form = EntryForm()
+    return render_template('show_roster.html', entries=entries, categories=categories, form=form, racers=racers)
+
 
 @app.route('/results')
 def show_results():
@@ -67,7 +88,7 @@ def add_rider():
         except:
             flash('Commit failed - name already used?')
         
-    return redirect(url_for('show_roster'))
+    return redirect(url_for('show_roster_alphabetic'))
 
 @app.route('/rider/<id>/edit', methods=['GET', 'POST'])
 def edit_rider(id):
@@ -87,7 +108,7 @@ def edit_rider(id):
                 flash('Update failed - db error?')
                 return redirect(url_for('edit_rider', id=id))
             flash('Rider was successfully updated')    
-        return redirect(url_for('show_roster'))
+        return redirect(url_for('show_roster_alphabetic'))
     else:    
         # Get the data from the database
         return render_template('edit_rider.html', form=form, id=id)
