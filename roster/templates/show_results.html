@@ -14,7 +14,7 @@
     {% endif %}
     t1 = setTimeout(function() {
            window.location.href="results?category={{next_category}}";
-     }, 2000 + 300* {{ entries|length }});
+     }, 2000 + (1000 * {{ entries|length }}) );
   });
 
 </script>

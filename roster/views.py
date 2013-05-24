@@ -34,10 +34,11 @@ def show_race():
 
 @app.route('/roster')
 def show_roster():
+    racers = Entry.query.filter(Entry.time==None).order_by('id').all()
     entries = Entry.query.order_by('name').all()
     categories = Category.query.all()
     form = EntryForm()
-    return render_template('show_roster.html', entries=entries, categories=categories, form=form)
+    return render_template('show_roster.html', entries=entries, categories=categories, form=form, racers=racers)
 
 @app.route('/results')
 def show_results():

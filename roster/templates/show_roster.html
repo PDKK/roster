@@ -25,9 +25,10 @@
       </dl>
     </form>
 
+  There are currents {{ racers | length }} riders without a time
   <ul class=entries>
   {% for entry in entries %}
-    <li><a href="{{ url_for('edit_rider', id=entry.id) }}"><b>{{ entry.name }}</b></a>  Age:{{ entry.age }}, Club:{{ entry.club }}
+    <li><a href="{{ url_for('edit_rider', id=entry.id) }}"><b>{{ entry.name }}</b></a> Time:{{ entry.time }}, Age:{{ entry.age }}, Club:{{ entry.club }}
   {% else %}
     <li><em>Unbelievable.  No entries here so far</em>
   {% endfor %}

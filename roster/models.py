@@ -3,6 +3,8 @@ from flask.ext.sqlalchemy import SQLAlchemy
 
 from roster import app
 
+import random
+
 db = SQLAlchemy(app)
 
 class Entry(db.Model):
@@ -53,100 +55,28 @@ def init_db():
 
 def add_test_data():
     cMen = Category.query.filter_by(name='Men').first()
-    m1 = Entry('Alf Aardvark', 21, 'Aardmans')
-    m1.category = cMen
-    db.session.add(m1)
-    m2 = Entry('Bob Bemer', 22, 'Aardmans')
-    m2.category = cMen
-    db.session.add(m2)
-    m3 = Entry('Charles Corney', 23, 'Aardmans')
-    m3.category = cMen
-    db.session.add(m3)
-    m4 = Entry('David Dilligent', 24, 'Aardmans')
-    m4.category = cMen
-    db.session.add(m4)
-    m5 = Entry('Ed Emeriay', 25, 'Aardmans')
-    m5.category = cMen
-    db.session.add(m5)
-    m5 = Entry('Fred Fotheringay', 26, 'Aardmans')
-    m5.category = cMen
-    db.session.add(m5)
-    m5 = Entry('Greg Gemeriay', 21, 'Aardmans')
-    m5.category = cMen
-    db.session.add(m5)
-    m5 = Entry('Harry Hemeriay', 21, 'Aardmans')
-    m5.category = cMen
-    db.session.add(m5)
-    m5 = Entry('Ian Imeriay', 21, 'Aardmans')
-    m5.category = cMen
-    db.session.add(m5)
-    m5 = Entry('Jack Jemeriay', 21, 'Aardmans')
-    m5.category = cMen
-    db.session.add(m5)
+    for firstname in ['Alan', 'Byron', 'Chad', 'Dave', 'Ed', 'Fred', 'Ginger', 'Harry']:
+        for lastname in [' Aardvark', ' Bemer', ' Corney', ' Dilligent', ' Emerson', ' Fitzgerald', ' Gerrard', ' Hopeful']:
+            m1 = Entry(firstname + lastname, 21)
+            m1.category = cMen
+            m1.time = random.uniform(11,22)
+            db.session.add(m1)
 
     cWomen = Category.query.filter_by(name='Women').first()
-    m1 = Entry('Annie Aardvark', 21, 'Aardmans')
-    m1.category = cWomen
-    db.session.add(m1)
-    m2 = Entry('Betty Bemer', 22, 'Aardmans')
-    m2.category = cWomen
-    db.session.add(m2)
-    m3 = Entry('Cynthia Corney', 23, 'Aardmans')
-    m3.category = cWomen
-    db.session.add(m3)
-    m4 = Entry('Deirdre Dilligent', 24, 'Aardmans')
-    m4.category = cWomen
-    db.session.add(m4)
-    m5 = Entry('Emma Emeriay', 25, 'Aardmans')
-    m5.category = cWomen
-    db.session.add(m5)
-    m5 = Entry('Frances Fotheringay', 26, 'Aardmans')
-    m5.category = cWomen
-    db.session.add(m5)
-    m5 = Entry('Gemma Gemeriay', 21, 'Aardmans')
-    m5.category = cWomen
-    db.session.add(m5)
-    m5 = Entry('Hillary Hemeriay', 21, 'Aardmans')
-    m5.category = cWomen
-    db.session.add(m5)
-    m5 = Entry('WIan Imeriay', 21, 'Aardmans')
-    m5.category = cWomen
-    db.session.add(m5)
-    m5 = Entry('WJack Jemeriay', 21, 'Aardmans')
-    m5.category = cWomen
-    db.session.add(m5)
+
+    for firstname in ['Annie', 'Bonnie', 'Claire', 'Donna', 'Emma']:
+        for lastname in [' Aardvark', ' Bemer', ' Corney', ' Dilligent', ' Emerson']:
+            m1 = Entry(firstname + lastname, 21)
+            m1.category = cWomen
+            db.session.add(m1)
 
     cChild = Category.query.filter_by(name='Under 16').first()
-    m1 = Entry('Aaron Aardvark', 21, 'Aardmans')
-    m1.category = cChild
-    db.session.add(m1)
-    m2 = Entry('Billy Bemer', 22, 'Aardmans')
-    m2.category = cChild
-    db.session.add(m2)
-    m3 = Entry('CCharles Corney', 23, 'Aardmans')
-    m3.category = cChild
-    db.session.add(m3)
-    m4 = Entry('CDavid Dilligent', 24, 'Aardmans')
-    m4.category = cChild
-    db.session.add(m4)
-    m5 = Entry('CEd Emeriay', 25, 'Aardmans')
-    m5.category = cChild
-    db.session.add(m5)
-    m5 = Entry('CFred Fotheringay', 26, 'Aardmans')
-    m5.category = cChild
-    db.session.add(m5)
-    m5 = Entry('CGreg Gemeriay', 21, 'Aardmans')
-    m5.category = cChild
-    db.session.add(m5)
-    m5 = Entry('CHarry Hemeriay', 21, 'Aardmans')
-    m5.category = cChild
-    db.session.add(m5)
-    m5 = Entry('CIan Imeriay', 21, 'Aardmans')
-    m5.category = cChild
-    db.session.add(m5)
-    m5 = Entry('CJack Jemeriay', 21, 'Aardmans')
-    m5.category = cChild
-    db.session.add(m5)
+
+    for firstname in ['Alfie', 'Billy', 'Cedric', 'Danny', 'Ernie']:
+        for lastname in [' Aardvark', ' Bemer', ' Corney', ' Dilligent', ' Emerson']:
+            m1 = Entry(firstname + lastname, 21)
+            m1.category = cChild
+            db.session.add(m1)
 
 
     db.session.commit()
